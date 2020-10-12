@@ -1,0 +1,13 @@
+#!/bin/bash
+set -euo pipefail
+path="$1"
+git_path="$HOME/$path/.git"
+if [ ! -d "$git_path" ]; then
+	echo "No directory at $git_path" >&2
+	exit 1
+fi
+
+token=$(pwgen 50 1)
+
+echo "$token: $path" >> tokens.yml
+echo "$path: https://webhooks.tyilo.com/hook/$token"
