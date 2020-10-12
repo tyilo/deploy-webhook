@@ -11,12 +11,12 @@ services:
       - ./fifo:/app/fifo
     labels:
       - traefik.enable=true
-      - traefik.http.routers.deploy-webhook.rule=Host(`webhooks.fredagscafeen.dk`)
+      - traefik.http.routers.deploy-webhook.rule=Host(`webhooks.tyilo.com`)
       - traefik.http.services.deploy-webhook.loadbalancer.server.port=8000
 
   deployer:
     image: alpine
-    command: nsenter -t 1 -m -u -n -i -- sudo -u ubuntu /home/ubuntu/deploy-webhook/deploy-daemon
+    command: nsenter -t 1 -m -u -n -i -- sudo -u tyilo /home/tyilo/deploy-webhook/deploy-daemon
     privileged: true
     pid: "host"
 
