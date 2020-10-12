@@ -1,0 +1,30 @@
+#!/bin/sh
+
+run_cmd() {
+    echo "[-] $@"
+    if ! "$@"; then
+        echo "[!] $@ failed"
+        exit 1
+    fi
+}
+
+deploy() {
+    (
+        cd ~
+        echo "[-] Deploying $1"
+        run_cmd cd "$1"
+        run_cmd git pull
+        run_cmd docker-compose build
+        run_cmd docker-compose up --detach
+        echo "[+] Done"
+    )
+}
+
+cd "$(dirname "$0")"
+
+while true; do
+    read path < fifo
+    if [ -n "$path" ]; then
+        deploy "$path" >&2
+    fi
+done
