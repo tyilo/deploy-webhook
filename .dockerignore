@@ -1,5 +1,5 @@
 /.git
 
 # From .gitignore
-/tokens.yml
+/data
 __pycache__

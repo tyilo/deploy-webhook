@@ -7,8 +7,7 @@ services:
     networks:
       - traefik
     volumes:
-      - ./tokens.yml:/app/tokens.yml
-      - ./fifo:/app/fifo
+      - ./data:/app/data
     labels:
       - traefik.enable=true
       - traefik.http.routers.deploy-webhook.rule=Host(`webhooks.tyilo.com`)

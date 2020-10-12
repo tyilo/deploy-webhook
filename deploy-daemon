@@ -23,8 +23,13 @@ deploy() {
 
 cd "$(dirname "$0")"
 
+if [ ! -p data/fifo ]; then
+    rm -f data/fifo
+    mkfifo data/fifo
+fi
+
 while true; do
-    read path < fifo
+    read path < data/fifo
     if [ -n "$path" ]; then
         deploy "$path" >&2
     fi

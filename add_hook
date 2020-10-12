@@ -9,5 +9,5 @@ fi
 
 token=$(pwgen 50 1)
 
-echo "$token: $path" >> tokens.yml
+echo "$token: $path" >> data/tokens.yml
 echo "$path: https://webhooks.tyilo.com/hook/$token"
