@@ -4,6 +4,7 @@ services:
   app:
     build: .
     image: deploy-webhook
+    restart: always
     networks:
       - traefik
     volumes:
@@ -15,6 +16,7 @@ services:
 
   deployer:
     image: alpine
+    restart: always
     command: nsenter -t 1 -m -u -n -i -- sudo -u tyilo /home/tyilo/deploy-webhook/deploy-daemon
     privileged: true
     pid: "host"
