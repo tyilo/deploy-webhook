@@ -17,7 +17,7 @@ services:
   deployer:
     image: alpine
     restart: always
-    command: nsenter -t 1 -m -u -n -i -- sudo -u tyilo /home/tyilo/deploy-webhook/deploy-daemon
+    command: nsenter -t 1 -m -u -n -i -- bash -c "exec $$(docker inspect deploy-webhook_app_1 --format '{{index .Config.Labels \"com.docker.compose.project.working_dir\"}}')/deploy-daemon"
     privileged: true
     pid: "host"
 

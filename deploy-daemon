@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 run_cmd() {
     echo "[-] $@"
@@ -23,14 +23,25 @@ deploy() {
 
 cd "$(dirname "$0")"
 
-if [ ! -p data/fifo ]; then
+if [[ $(id -u) = 0 ]]; then
+    echo "[-] Running as root"
+    deploy_user=$(python3 -c 'import sys, json; print(json.load(sys.stdin)["deploy_user"])' < config.json)
+    if [[ $? != 0 ]]; then
+        echo "[!] Failed to get deploy_user from config.json"
+        exit 1
+    fi
+    echo "[-] Switching to user $deploy_user"
+    exec sudo -u "$deploy_user" "./$(basename "$0")"
+fi
+
+if [[ ! -p data/fifo ]]; then
     rm -f data/fifo
     mkfifo data/fifo
 fi
 
 while true; do
     read path < data/fifo
-    if [ -n "$path" ]; then
+    if [[ -n "$path" ]]; then
         deploy "$path" >&2
     fi
 done
