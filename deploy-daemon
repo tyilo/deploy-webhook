@@ -28,13 +28,13 @@ deploy() {
 cd "$(dirname "$0")"
 
 if [[ $(id -u) = 0 ]]; then
-    echo "[-] Running as root"
+    log "[-] Running as root"
     deploy_user=$(python3 -c 'import sys, json; print(json.load(sys.stdin)["deploy_user"])' < config.json)
     if [[ $? != 0 ]]; then
-        echo "[!] Failed to get deploy_user from config.json"
+        log "[!] Failed to get deploy_user from config.json"
         exit 1
     fi
-    echo "[-] Switching to user $deploy_user"
+    log "[-] Switching to user $deploy_user"
     exec sudo -u "$deploy_user" "./$(basename "$0")"
 fi
 
