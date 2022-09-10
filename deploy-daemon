@@ -5,9 +5,9 @@ log() {
 }
 
 run_cmd() {
-    log "[-] $@"
+    log "[-] $*"
     if ! "$@"; then
-        log "[!] $@ failed"
+        log "[!] $* failed"
         exit 1
     fi
 }
@@ -44,7 +44,7 @@ if [[ ! -p data/fifo ]]; then
 fi
 
 while true; do
-    read path < data/fifo
+    read -r path < data/fifo
     if [[ -n "$path" ]]; then
         deploy "$path" >&2
     fi
