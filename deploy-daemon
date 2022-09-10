@@ -18,9 +18,9 @@ deploy() {
         log "[-] Deploying $1"
         run_cmd cd "$1"
         run_cmd git pull
-        run_cmd docker-compose pull
-        run_cmd docker-compose build
-        run_cmd docker-compose up --detach
+        run_cmd docker compose pull
+        run_cmd docker compose build
+        run_cmd docker compose up --detach
         log "[+] Done"
     )
 }
