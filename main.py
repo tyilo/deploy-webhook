@@ -1,5 +1,4 @@
 import yaml
-
 from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
