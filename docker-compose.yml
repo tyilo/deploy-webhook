@@ -2,8 +2,7 @@ version: "3.7"
 
 services:
   app:
-    build: .
-    image: deploy-webhook
+    image: ghcr.io/tyilo/deploy-webhook
     restart: always
     networks:
       - traefik
